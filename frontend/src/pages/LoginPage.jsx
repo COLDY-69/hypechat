@@ -85,7 +85,7 @@ const handleLogin = (e) =>{
             
           </div>
 
-          <button tyoe ="submit" className="btn btn-primary w-full"disabled={isPending}>
+          <button type ="submit" className="btn btn-primary w-full"disabled={isPending}>
             {isPending ? (
               <>
               <span className="loading loading-spinner loading-xs"></span>
