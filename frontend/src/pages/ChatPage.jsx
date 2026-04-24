@@ -6,7 +6,6 @@ import { getStreamToken } from "../lib/api";
 
 import {
   Channel,
-  ChannelHeader,
   Chat,
   MessageInput,
   MessageList,
@@ -33,7 +32,7 @@ const ChatPage = () => {
   const { data: tokenData } = useQuery({
     queryKey: ["streamToken"],
     queryFn: getStreamToken,
-    enabled: !!authUser, // this will run only when authUser is available
+    enabled: !!authUser,
   });
 
   useEffect(() => {
@@ -54,12 +53,7 @@ const ChatPage = () => {
           tokenData.token
         );
 
-        //
         const channelId = [authUser._id, targetUserId].sort().join("-");
-
-        // you and me
-        // if i start the chat => channelId: [myId, yourId]
-        // if you start the chat => channelId: [yourId, myId]  => [myId,yourId]
 
         const currChannel = client.channel("messaging", channelId, {
           members: [authUser._id, targetUserId],
@@ -83,11 +77,9 @@ const ChatPage = () => {
   const handleVideoCall = () => {
     if (channel) {
       const callUrl = `${window.location.origin}/call/${channel.id}`;
-
       channel.sendMessage({
         text: `I've started a video call. Join me here: ${callUrl}`,
       });
-
       toast.success("Video call link sent successfully!");
     }
   };
@@ -98,10 +90,14 @@ const ChatPage = () => {
     <div className="h-[93vh]">
       <Chat client={chatClient}>
         <Channel channel={channel}>
-          <div className="w-full relative">
-            <CallButton handleVideoCall={handleVideoCall} />
+          <div className="w-full flex flex-col h-full">
+            <div className="flex items-center justify-between px-4 py-3 border-b bg-base-100 z-10">
+              <h2 className="font-semibold text-base">
+                {channel?.data?.name || "Chat"}
+              </h2>
+              <CallButton handleVideoCall={handleVideoCall} />
+            </div>
             <Window>
-              <ChannelHeader />
               <MessageList />
               <MessageInput focus />
             </Window>
@@ -112,4 +108,5 @@ const ChatPage = () => {
     </div>
   );
 };
+
 export default ChatPage;
