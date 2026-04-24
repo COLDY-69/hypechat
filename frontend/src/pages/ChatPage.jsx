@@ -86,18 +86,14 @@ const ChatPage = () => {
 
   if (loading || !chatClient || !channel) return <ChatLoader />;
 
-  return (
+return (
     <div className="h-[93vh]">
       <Chat client={chatClient}>
         <Channel channel={channel}>
-          <div className="w-full flex flex-col h-full">
-            <div className="flex items-center justify-between px-4 py-3 border-b bg-base-100 z-10">
-              <h2 className="font-semibold text-base">
-                {channel?.data?.name || "Chat"}
-              </h2>
-              <CallButton handleVideoCall={handleVideoCall} />
-            </div>
+          <div className="w-full relative">
+            <CallButton handleVideoCall={handleVideoCall} />
             <Window>
+              <ChannelHeader />
               <MessageList />
               <MessageInput focus />
             </Window>
