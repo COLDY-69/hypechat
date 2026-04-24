@@ -20,7 +20,7 @@ const useLogin = () => {
   const { mutate, isPending, error } = useMutation({
     mutationFn: login,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["authUser"] });
+      queryClient.refetchQueries({ queryKey: ["authUser"] });
     },
   });
 
