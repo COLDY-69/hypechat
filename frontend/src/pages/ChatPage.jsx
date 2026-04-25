@@ -6,6 +6,7 @@ import { getStreamToken } from "../lib/api";
 
 import {
   Channel,
+  ChannelHeader,
   Chat,
   MessageInput,
   MessageList,
@@ -86,7 +87,7 @@ const ChatPage = () => {
 
   if (loading || !chatClient || !channel) return <ChatLoader />;
 
-return (
+  return (
     <div className="h-[93vh]">
       <Chat client={chatClient}>
         <Channel channel={channel}>
