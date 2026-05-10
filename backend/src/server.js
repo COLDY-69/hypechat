@@ -19,7 +19,7 @@ const __dirname = path.resolve();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: true,
+  origin: "https://hypechat-4e6p.onrender.com",
   credentials: true,
 }));
 
