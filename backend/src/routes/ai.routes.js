@@ -42,6 +42,18 @@
 // export default router;
 
 
+import express from "express";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const router = express.Router();
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+const model = genAI.getGenerativeModel({
+  model: "gemini-2.0-flash",
+});
+
+// Smart Message Suggestions
 router.post("/suggest", async (req, res) => {
   const { conversationHistory, currentInput } = req.body;
 
@@ -90,3 +102,35 @@ User typing:
     });
   }
 });
+
+// Chat Summary
+router.post("/summarize", async (req, res) => {
+  const { messages } = req.body;
+
+  try {
+    const chatText = messages
+      .map((m) => `${m.sender}: ${m.content}`)
+      .join("\n");
+
+    const prompt = `
+Summarize this chat conversation in 3-4 sentences:
+
+${chatText}
+`;
+
+    const result = await model.generateContent(prompt);
+
+    res.json({
+      summary: result.response.text(),
+    });
+
+  } catch (err) {
+    console.error("AI summarize error:", err);
+
+    res.status(500).json({
+      error: "Failed to summarize",
+    });
+  }
+});
+
+export default router;
