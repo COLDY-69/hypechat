@@ -66,20 +66,20 @@ const AISummaryButton = () => {
 
       {/* Summary Modal */}
       {summary && (
-        <div className="absolute top-10 right-0 z-50 bg-base-200 border border-base-300 rounded-xl shadow-xl p-4 w-72">
+        <div className="absolute top-10 right-0 z-50 bg-white border border-gray-200 rounded-xl shadow-xl p-4 w-72">
           <div className="flex justify-between items-center mb-2">
             <span className="text-sm font-semibold text-primary">Chat Summary</span>
             <button onClick={() => setSummary(null)}>
-              <XIcon className="w-4 h-4 opacity-50 hover:opacity-100" />
+              <XIcon className="w-4 h-4 text-gray-400 hover:text-gray-700" />
             </button>
           </div>
-          <p className="text-sm opacity-80 leading-relaxed">{summary}</p>
+          <p className="text-sm text-gray-700 leading-relaxed">{summary}</p>
         </div>
       )}
 
       {loading && (
-        <div className="absolute top-10 right-0 z-50 bg-base-200 border border-base-300 rounded-xl shadow-xl p-4 w-72">
-          <p className="text-sm opacity-60">Summarizing...</p>
+        <div className="absolute top-10 right-0 z-50 bg-white border border-gray-200 rounded-xl shadow-xl p-4 w-72">
+          <p className="text-sm text-gray-500">Summarizing...</p>
         </div>
       )}
     </div>
